@@ -1,4 +1,4 @@
-console.log("Hola")
+console.log("Hi")
 module.exports = () => {
   // ...
 };
