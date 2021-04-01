@@ -13,7 +13,7 @@ const getRoute = (route) => {
   return route;
 };
 
-console.log(getRoute('/home/laboratoria/LIM014-mdlinks/src/index.js'));
+// console.log(getRoute('/home/laboratoria/LIM014-mdlinks/src/index.js'));
 
 // Identifica si la ruta es File o Directorio
 const isDir = (route) => {
@@ -44,7 +44,7 @@ const readDir = (route) => {
   });
   return allMD;
 };
-console.log(readDir('/home/laboratoria/LIM014-mdlinks/src/hola'));
+// console.log(readDir('/home/laboratoria/LIM014-mdlinks/src/hola'));
 
 // Lee el File
 const markdown = (route) => fs.readFileSync(route, 'utf-8');
@@ -69,31 +69,45 @@ const getLink = (md) => {
       // console.log(onlyUrl);
 
     finalResult.push({
-      text: onlyString,
       href: onlyUrl,
+      text: onlyString,
     });
   }
   return (finalResult); // En finalResult guardamos el array de objetos con los links
 };
 
+const complete = (arrayMD) => {
+  let objComplete = [];
+  arrayMD.forEach((fileMD) => {
+    const lecture = markdown(fileMD);
+    const saveURL = getLink(lecture);
+    saveURL.forEach((url) => {
+      // eslint-disable-next-line no-param-reassign
+      url.fileName = fileMD;
+    });
+    objComplete = objComplete.concat(saveURL);
+  });
+  return objComplete;
+};
+console.log(complete(['/home/laboratoria/LIM014-mdlinks/src/hola/hola1.md']));
 // Extrae solo links
-const onlyLinks = (arrayobj) => {
+/* const onlyLinks = (arrayobj) => {
   const links = [];
   arrayobj.forEach((obj) => {
     const pureLink = obj.href;
     links.push(pureLink);
   });
   return links;
-};
-const newArray = [{
+}; */
+/* const newArray = [{
   text: 'labore',
   href: 'https://en.wiktionary.org/wiki/labore',
 },
-{ text: 'job', href: 'https://en.wiktionary.org/wiki/labore' }];
-console.log(onlyLinks(newArray));
+{ text: 'job', href: 'https://en.wiktionary.org/wiki/labore' }]; */
+// console.log(onlyLinks(newArray));
 
 // Extrae solo text
-const getText = (md) => {
+/* const getText = (md) => {
   const regex = /!*\[(.+?)\]\((.+?)\)/gi;
 
   const resultUrl = md.match(regex);
@@ -108,16 +122,25 @@ const getText = (md) => {
     finalResult.push({ text: onlyString });
   }
   return finalResult;
-};
+}; */
 
-console.log(getLink(markdown('/home/laboratoria/LIM014-mdlinks/src/hola/hola1.md')));
-console.log(getText(markdown('/home/laboratoria/LIM014-mdlinks/src/hola/hola1.md')));
-const validateLinks = (link) => {
-  const getStatus = axios.get(link);
-  return getStatus
-    .then((res) => res.status)
-    .catch((error) => console.log(error));
-};
+// console.log(getLink(markdown('/home/laboratoria/LIM014-mdlinks/src/hola/hola1.md')));
+// console.log(getText(markdown('/home/laboratoria/LIM014-mdlinks/src/hola/hola1.md')));
+const validateLinks = ({ href, text, fileName }) => axios.get(href)
+  .then((res) => {
+    const { status } = res;
+    const textStatus = 'ok';
+    return {
+      href, text, fileName, status, textStatus,
+    };
+  })
+  .catch((error) => {
+    const { status } = error.res.status;
+    const textStatus = 'fail';
+    return {
+      href, text, fileName, status, textStatus,
+    };
+  });
 
 const validate = (arrayobj) => {
   const results = [];
@@ -125,33 +148,25 @@ const validate = (arrayobj) => {
     const promise = validateLinks(link);
     results.push(promise);
   });
-  Promise.all(results).then((res) => {
-    console.log(res);
-  });
-  return results;
+  return Promise.all(results);
 };
-console.log(validate(['https://en.wiktionary.org/wiki/labore',
-'https://en.wiktionary.org/wiki/labore']));
 
-/* const status = (arrayobj) => {
-  const totalStatus = [];
-  Promise.all(arrayobj).then((res) => {
-    totalStatus.push(res);
-  });
-  return totalStatus;
-};
-console.log(status(['https://en.wiktionary.org/wiki/labore',
-'https://en.wiktionary.org/wiki/labore'])); */
-// constmarkdown=readFileSync('/home/laboratoria/LIM014-mdlinks/src/hola/hola1.md',{encoding:'utf8'}
+validate([{
+  href: 'https://en.wiktionary.org/wiki/labore',
+  text: 'LAbore',
+  fileName: '/home/laboratoria/LIM014-mdlinks/src',
+}])
+  .then((res) => console.log(res))
+  .catch((error) => console.log(error));
 
-// const links = markdownLinkExtractor(markdown);
-
-// links.forEach((link) => {
-// console.log(link);
-// });
-
-// console.log(markdown);
-
-module.exports = () => {
-  // ...
+module.exports = {
+  getRoute,
+  isDir,
+  extMD,
+  readDir,
+  markdown,
+  getLink,
+  validateLinks,
+  validate,
+  complete,
 };
