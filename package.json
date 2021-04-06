@@ -10,7 +10,7 @@
     "test": "jest --verbose --coverage ",
     "eslint": "eslint --ext .js src/ test/",
     "pretest": "npm run eslint",
-    "start": "nodemon ./src/index.js"
+    "start": "nodemon ./src/mdLinks.js"
   },
   "repository": {
     "type": "git",

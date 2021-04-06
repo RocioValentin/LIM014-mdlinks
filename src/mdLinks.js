@@ -3,9 +3,6 @@ const {
   isDir,
   extMD,
   readDir,
-  markdown,
-  getLink,
-  validateLinks,
   validate,
   complete,
 } = require('./index.js');
@@ -29,9 +26,24 @@ const mdLinks = (path, option = { validate: false }) => new Promise((resolve, re
     } else {
       reject(new Error('No es un archivo con extension .md'));
     }
+  } else if (isDirectory === true) {
+    if (option.validate === true) {
+      const filesMd = readDir(pathAbs);
+      const listLink = complete(filesMd);
+      const listLinksValidates = validate(listLink);
+      resolve(listLinksValidates);
+    } else {
+      const filesMd = readDir(pathAbs);
+      const listLink = complete(filesMd);
+      resolve(listLink);
+    }
   } else {
-    const filesMD = readDir(pathAbs);
-    const list
+    reject(new Error('Ruta no encontrada'));
   }
 });
+
+/* mdLinks('/home/laboratoria/LIM014-mdlinks/src/hola/hola1.md', { validate: true })
+  .then((result) => console.table(result))
+  .catch(console.error); */
+
 module.exports = mdLinks;

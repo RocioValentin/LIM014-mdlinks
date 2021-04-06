@@ -7,6 +7,8 @@ const {
   complete,
 } = require('../src/index.js');
 
+// const mdLinks = require('../src/mdLinks.js');
+
 describe('getRoute', () => {
   it('should a function', () => {
     expect(typeof getRoute).toBe('function');

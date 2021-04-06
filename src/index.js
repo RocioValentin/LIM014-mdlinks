@@ -76,6 +76,7 @@ const getLink = (md) => {
   return (finalResult); // En finalResult guardamos el array de objetos con los links
 };
 
+// Devuelve un objeto { href, text, filename}
 const complete = (arrayMD) => {
   let objComplete = [];
   arrayMD.forEach((fileMD) => {
@@ -89,43 +90,12 @@ const complete = (arrayMD) => {
   });
   return objComplete;
 };
-console.log(complete(['/home/laboratoria/LIM014-mdlinks/src/hola/hola1.md']));
-// Extrae solo links
-/* const onlyLinks = (arrayobj) => {
-  const links = [];
-  arrayobj.forEach((obj) => {
-    const pureLink = obj.href;
-    links.push(pureLink);
-  });
-  return links;
-}; */
-/* const newArray = [{
-  text: 'labore',
-  href: 'https://en.wiktionary.org/wiki/labore',
-},
-{ text: 'job', href: 'https://en.wiktionary.org/wiki/labore' }]; */
-// console.log(onlyLinks(newArray));
-
-// Extrae solo text
-/* const getText = (md) => {
-  const regex = /!*\[(.+?)\]\((.+?)\)/gi;
-
-  const resultUrl = md.match(regex);
-
-  const textRegex = /\[(\w+.+?)\]/gi;
-  const finalResult = [];
-
-  for (let i = 0; i < resultUrl.length; i += 1) {
-    const onlyString = resultUrl[i].match(textRegex)[0].substring(1,
-      resultUrl[i].match(textRegex)[0].length - 1);
-
-    finalResult.push({ text: onlyString });
-  }
-  return finalResult;
-}; */
+// console.log(complete(['/home/laboratoria/LIM014-mdlinks/src/hola/hola1.md']));
 
 // console.log(getLink(markdown('/home/laboratoria/LIM014-mdlinks/src/hola/hola1.md')));
 // console.log(getText(markdown('/home/laboratoria/LIM014-mdlinks/src/hola/hola1.md')));
+
+// Valida los links con Axios
 const validateLinks = ({ href, text, fileName }) => axios.get(href)
   .then((res) => {
     const { status } = res;
@@ -135,13 +105,21 @@ const validateLinks = ({ href, text, fileName }) => axios.get(href)
     };
   })
   .catch((error) => {
-    const { status } = error.res.status;
-    const textStatus = 'fail';
+    let status;
+    let textStatus;
+    if (error.res) {
+      status = error.res.status;
+      textStatus = 'fail';
+    } else {
+      status = 'not status';
+      textStatus = 'fail';
+    }
     return {
       href, text, fileName, status, textStatus,
     };
   });
 
+// Promesa que recorre un array de objetos de varios links
 const validate = (arrayobj) => {
   const results = [];
   arrayobj.forEach((link) => {
@@ -151,13 +129,44 @@ const validate = (arrayobj) => {
   return Promise.all(results);
 };
 
-validate([{
+const stats = (arrayobj) => {
+  const totalLinks = arrayobj.length;
+  const uniqueLinks = [new Set(arrayobj.map((link) => link.href))].length;
+  return { Total: totalLinks, Unique: uniqueLinks };
+};
+
+const validateAndStats = (arrayobj) => {
+  const totalLinks = arrayobj.length;
+  const uniqueLinks = [new Set(arrayobj.map((link) => link.href))].length;
+  let brokenLinks = 0;
+  arrayobj.forEach((element) => {
+    if (element.textStatus === 'fail') brokenLinks += 1;
+  });
+  return { Total: totalLinks, Unique: uniqueLinks, Broken: brokenLinks };
+};
+console.log(validateAndStats([{
+  href: 'https://en.wiktionary.org/wiki/labore',
+  text: 'LAbore',
+  fileName: '/home/laboratoria/LIM014-mdlinks/src',
+  status: 200,
+  textStatus: 'ok',
+}]));
+console.log(stats([{
+  href: 'https://en.wiktionary.org/wiki/labore',
+  text: 'LAbore',
+  fileName: '/home/laboratoria/LIM014-mdlinks/src',
+}, {
+  href: 'https://en.wiktionary.org/wiki/labore',
+  text: 'LAbore',
+  fileName: '/home/laboratoria/LIM014-mdlinks/src',
+}]));
+/* validate([{
   href: 'https://en.wiktionary.org/wiki/labore',
   text: 'LAbore',
   fileName: '/home/laboratoria/LIM014-mdlinks/src',
 }])
   .then((res) => console.log(res))
-  .catch((error) => console.log(error));
+  .catch((error) => console.log(error)); */
 
 module.exports = {
   getRoute,
@@ -169,4 +178,6 @@ module.exports = {
   validateLinks,
   validate,
   complete,
+  stats,
+  validateAndStats,
 };
