@@ -144,7 +144,7 @@ const validateAndStats = (arrayobj) => {
   });
   return { Total: totalLinks, Unique: uniqueLinks, Broken: brokenLinks };
 };
-console.log(validateAndStats([{
+/* console.log(validateAndStats([{
   href: 'https://en.wiktionary.org/wiki/labore',
   text: 'LAbore',
   fileName: '/home/laboratoria/LIM014-mdlinks/src',
@@ -159,7 +159,7 @@ console.log(stats([{
   href: 'https://en.wiktionary.org/wiki/labore',
   text: 'LAbore',
   fileName: '/home/laboratoria/LIM014-mdlinks/src',
-}]));
+}])); */
 /* validate([{
   href: 'https://en.wiktionary.org/wiki/labore',
   text: 'LAbore',
