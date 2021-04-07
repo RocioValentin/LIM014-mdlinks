@@ -16,6 +16,6 @@ if (args.length === 0) {
 } else if (args.length === 1) {
   const path = args[0];
   mdlinks(path, { validate: false })
-    .then((result) => console.log(result))
+    .then((result) => console.table(result))
     .catch((error) => console.log(error));
 }

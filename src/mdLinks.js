@@ -29,7 +29,9 @@ const mdLinks = (path, option = { validate: false }) => new Promise((resolve, re
   } else if (isDirectory === true) {
     if (option.validate === true) {
       const filesMd = readDir(pathAbs);
+      // console.log(filesMd);
       const listLink = complete(filesMd);
+      // console.log(listLink);
       const listLinksValidates = validate(listLink);
       resolve(listLinksValidates);
     } else {
@@ -42,7 +44,7 @@ const mdLinks = (path, option = { validate: false }) => new Promise((resolve, re
   }
 });
 
-/* mdLinks('/home/laboratoria/LIM014-mdlinks/src/hola/hola1.md', { validate: true })
+/* mdLinks('/home/laboratoria/LIM014-mdlinks/src/hola', { validate: true })
   .then((result) => console.table(result))
   .catch(console.error); */
 
