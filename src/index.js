@@ -58,20 +58,24 @@ const getLink = (md) => {
 
   const textRegex = /\[(\w+.+?)\]/gi; // Solo lo que se encuentre dentro de los corchetes
   const urlRegex = /\((\w+.+?)\)/gi; // Solo lo que se encuentre dentro de los parentesis
-  const finalResult = [];
+  let finalResult = [];
 
-  for (let i = 0; i < resultUrl.length; i += 1) {
-    const onlyString = resultUrl[i].match(textRegex)[0].substring(1,
-      resultUrl[i].match(textRegex)[0].length - 1);
+  if (resultUrl.length !== 0) {
+    for (let i = 0; i < resultUrl.length; i += 1) {
+      const onlyString = resultUrl[i].match(textRegex)[0].substring(1,
+        resultUrl[i].match(textRegex)[0].length - 1);
       // console.log(onlyString);
-    const onlyUrl = resultUrl[i].match(urlRegex)[0].substring(1,
-      resultUrl[i].match(urlRegex)[0].length - 1);
+      const onlyUrl = resultUrl[i].match(urlRegex)[0].substring(1,
+        resultUrl[i].match(urlRegex)[0].length - 1);
       // console.log(onlyUrl);
 
-    finalResult.push({
-      href: onlyUrl,
-      text: onlyString,
-    });
+      finalResult.push({
+        href: onlyUrl,
+        text: onlyString,
+      });
+    }
+  } else {
+    finalResult = [];
   }
   return (finalResult); // En finalResult guardamos el array de objetos con los links
 };
@@ -81,12 +85,14 @@ const complete = (arrayMD) => {
   let objComplete = [];
   arrayMD.forEach((fileMD) => {
     const lecture = markdown(fileMD);
-    const saveURL = getLink(lecture);
-    saveURL.forEach((url) => {
+    if (lecture !== '') {
+      const saveURL = getLink(lecture);
+      saveURL.forEach((url) => {
       // eslint-disable-next-line no-param-reassign
-      url.fileName = fileMD;
-    });
-    objComplete = objComplete.concat(saveURL);
+        url.fileName = fileMD;
+      });
+      objComplete = objComplete.concat(saveURL);
+    }
   });
   return objComplete;
 };
@@ -144,7 +150,7 @@ const validateAndStats = (arrayobj) => {
   });
   return { Total: totalLinks, Unique: uniqueLinks, Broken: brokenLinks };
 };
-console.log(validateAndStats([{
+/* console.log(validateAndStats([{
   href: 'https://en.wiktionary.org/wiki/labore',
   text: 'LAbore',
   fileName: '/home/laboratoria/LIM014-mdlinks/src',
@@ -159,14 +165,14 @@ console.log(stats([{
   href: 'https://en.wiktionary.org/wiki/labore',
   text: 'LAbore',
   fileName: '/home/laboratoria/LIM014-mdlinks/src',
-}]));
-/* validate([{
+}])); */
+validate([{
   href: 'https://en.wiktionary.org/wiki/labore',
   text: 'LAbore',
   fileName: '/home/laboratoria/LIM014-mdlinks/src',
 }])
-  .then((res) => console.log(res))
-  .catch((error) => console.log(error)); */
+  .then((res) => console.log('salio bien', res))
+  .catch((error) => console.log('salio mal', error));
 
 module.exports = {
   getRoute,

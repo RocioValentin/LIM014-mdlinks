@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "## Índice",
   "main": "index.js",
+  "bin": {
+    "mdLinks": "./src/cli.js"
+  },
+  "preferGlobal": true,
   "directories": {
     "test": "test"
   },
@@ -27,6 +31,7 @@
   "homepage": "https://github.com/RocioValentin/LIM014-mdlinks#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "bin": "0.0.0",
     "get-the-link-markdown": "^1.0.1",
     "jest": "^26.6.3",
     "markdown-link-extractor": "^1.2.6",
