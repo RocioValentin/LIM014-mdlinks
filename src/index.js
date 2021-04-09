@@ -166,13 +166,13 @@ console.log(stats([{
   text: 'LAbore',
   fileName: '/home/laboratoria/LIM014-mdlinks/src',
 }])); */
-validate([{
+/* validate([{
   href: 'https://en.wiktionary.org/wiki/labore',
   text: 'LAbore',
   fileName: '/home/laboratoria/LIM014-mdlinks/src',
 }])
-  .then((res) => console.log('salio bien', res))
-  .catch((error) => console.log('salio mal', error));
+  .then((res) => console.log(res))
+  .catch((error) => console.log('salio mal', error)); */
 
 module.exports = {
   getRoute,

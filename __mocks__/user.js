@@ -1,9 +1,21 @@
-const axios = require('axios');
+/* const axios = require('axios');
 
-class Users {
+class Values {
   static all() {
-    return axios.get('/users.json').then((resp) => resp.data);
+    return axios.get('https://en.wiktionary.org/wiki/labore').then((resp) => {
+      const { status } = resp;
+      const textStatus = 'ok';
+      return {
+        status, textStatus,
+      };
+    });
   }
 }
 
-module.exports = Users;
+module.exports = Values; */
+
+module.exports = {
+  get: jest.fn(() => Promise.resolve({ data: {} })),
+};
+
+// jest.spyOn(axios, 'get');

@@ -1,35 +1,43 @@
 const axios = require('axios');
 
-const Users = require('../__mocks__/user');
-
-jest.mock('axios');
+jest.mock('../__mocks__/user', () => ({
+  get: jest.fn(),
+}));
+// const mock = require('../__mocks__/user');
+// const Values = require('../__mocks__/user');
 
 const {
   validate,
   validateLinks,
 } = require('../src/index.js');
 
-jest.mock('axios');
+describe('Validate', () => {
+  test('should fetch users', () => {
+    const user = {
+      status: 200,
+      textStatus: 'ok',
+    };
+    const result = [{
+      href: 'https://en.wiktionary.org/wiki/labore',
+      text: 'LAbore',
+      fileName: '/home/laboratoria/LIM014-mdlinks/src',
+      status: 200,
+      textStatus: 'ok',
+    }];
+    const resp = [{
+      href: 'https://en.wiktionary.org/wiki/labore',
+      text: 'LAbore',
+      fileName: '/home/laboratoria/LIM014-mdlinks/src',
+    }];
+    // axios.get.mockResolvedValue(validate(resp));
 
-test.only('should fetch users', () => {
-  const users = [{
-    href: 'https://en.wiktionary.org/wiki/labore',
-    text: 'LAbore',
-    fileName: '/home/laboratoria/LIM014-mdlinks/src',
-    status: 200,
-    textStatus: 'ok',
-  }];
-  const resp = [{
-    href: 'https://en.wiktionary.org/wiki/labore',
-    text: 'LAbore',
-    fileName: '/home/laboratoria/LIM014-mdlinks/src',
-  }];
-  axios.get.mockResolvedValue(resp);
-
-  // or you could use the following depending on your use case:
-  // axios.get.mockImplementation(() => Promise.resolve(resp))
-
-  return Users.all().then((data) => expect(validate(data)).toEqual(users));
+    // or you could use the following depending on your use case:
+    axios.get.mockImplementation(() => Promise.resolve(user));
+    return validate(resp)
+      .then((data) => {
+        expect(data).toEqual(result);
+      });
+  });
 });
 
 test.skip('validate resolves', () => expect(validate([{
