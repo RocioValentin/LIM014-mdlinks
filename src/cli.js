@@ -18,4 +18,11 @@ if (args.length === 0) {
   mdlinks(path, { validate: false })
     .then((result) => console.table(result))
     .catch((error) => console.log(error));
+} else if (args.length === 2) {
+  if (args[2] === '--validate') {
+    const path = args[0];
+    mdlinks(path, { validate: true })
+      .then((result) => console.table(result))
+      .catch((error) => console.log(error));
+  }
 }
