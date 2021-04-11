@@ -104,24 +104,27 @@ const complete = (arrayMD) => {
 // Valida los links con Axios
 const validateLinks = ({ href, text, fileName }) => axios.get(href)
   .then((res) => {
-    const { status } = res;
-    const textStatus = 'ok';
+    // console.log(`line107`);
+    // console.log(res);
+    const estado = res.status;
+    const textEstado = res.statusText;
+    // const textStatus = 'ok';
     return {
-      href, text, fileName, status, textStatus,
+      href, text, fileName, estado, textEstado,
     };
   })
   .catch((error) => {
-    let status;
-    let textStatus;
-    if (error.res) {
-      status = error.res.status;
-      textStatus = 'fail';
+    let estado;
+    let textEstado;
+    if (error) {
+      estado = 404;
+      textEstado = 'FAIL';
     } else {
-      status = 'not status';
-      textStatus = 'fail';
+      estado = 'not status';
+      textEstado = 'FAIL';
     }
     return {
-      href, text, fileName, status, textStatus,
+      href, text, fileName, estado, textEstado,
     };
   });
 
@@ -131,6 +134,7 @@ const validate = (arrayobj) => {
   arrayobj.forEach((link) => {
     const promise = validateLinks(link);
     results.push(promise);
+    // console.log(results);
   });
   return Promise.all(results);
 };
@@ -146,7 +150,7 @@ const validateAndStats = (arrayobj) => {
   const uniqueLinks = [new Set(arrayobj.map((link) => link.href))].length;
   let brokenLinks = 0;
   arrayobj.forEach((element) => {
-    if (element.textStatus === 'fail') brokenLinks += 1;
+    if (element.textEstado === 'FAIL') brokenLinks += 1;
   });
   return { Total: totalLinks, Unique: uniqueLinks, Broken: brokenLinks };
 };
@@ -167,7 +171,7 @@ console.log(stats([{
   fileName: '/home/laboratoria/LIM014-mdlinks/src',
 }])); */
 /* validate([{
-  href: 'https://en.wiktionary.org/wiki/labore',
+  href: 'http://www.abab.com.pe/aldo-bruno',
   text: 'LAbore',
   fileName: '/home/laboratoria/LIM014-mdlinks/src',
 }])
