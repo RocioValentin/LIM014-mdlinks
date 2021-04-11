@@ -74,6 +74,11 @@ describe('complete', () => {
       href: 'https://en.wiktionary.org/wiki/labore',
       text: 'job',
       fileName: '/home/laboratoria/LIM014-mdlinks/src/hola/hola1.md',
+    },
+    {
+      href: 'http://www.abab.com.pe/aldo-bruno',
+      text: 'Criss',
+      fileName: '/home/laboratoria/LIM014-mdlinks/src/hola/hola1.md',
     }]);
   });
 });
