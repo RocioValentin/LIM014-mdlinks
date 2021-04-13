@@ -14,9 +14,9 @@ Podemos instalar la librería de la siguiente forma:
 ## 3. Modo de uso
 ## 4. Diagrama de Flujo
 ### API
-![API](https://ibb.co/SywZHvQ)
+![API](https://github.com/RocioValentin/LIM014-mdlinks/blob/main/images-README/modified-Page-1.png)
 ### CLI
-![CLI](https://ibb.co/mtnfcKr)
+![CLI](https://github.com/RocioValentin/LIM014-mdlinks/blob/main/images-README/modified-Page-2.png)
 
 # Markdown Links
 
