@@ -4,14 +4,17 @@ const axios = require('axios');
 
 // Determina si la ruta es absoluta, si no resuelve la ruta
 const getRoute = (route) => {
+  let ruta = route;
   const isAbsolute = path.isAbsolute(route);
-  switch (isAbsolute) {
-    case true: return route;
-    case false: return (path.resolve(route));
-    default:
+  if (isAbsolute === false) {
+    ruta = (path.resolve(route));
+  } else {
+    ruta = route;
   }
-  return route;
+  return ruta;
 };
+
+// cambiar por if
 
 // console.log(getRoute('/home/laboratoria/LIM014-mdlinks/src/index.js'));
 
@@ -58,7 +61,7 @@ const getLink = (md) => {
 
   const textRegex = /\[(\w+.+?)\]/gi; // Solo lo que se encuentre dentro de los corchetes
   const urlRegex = /\((\w+.+?)\)/gi; // Solo lo que se encuentre dentro de los parentesis
-  let finalResult = [];
+  const finalResult = [];
 
   if (resultUrl.length !== 0) {
     for (let i = 0; i < resultUrl.length; i += 1) {
@@ -74,8 +77,6 @@ const getLink = (md) => {
         text: onlyString,
       });
     }
-  } else {
-    finalResult = [];
   }
   return (finalResult); // En finalResult guardamos el array de objetos con los links
 };
@@ -171,7 +172,7 @@ console.log(stats([{
   fileName: '/home/laboratoria/LIM014-mdlinks/src',
 }])); */
 /* validate([{
-  href: 'http://www.abab.com.pe/aldo-bruno',
+  href: 'https://en.wiktionary.org/wiki/laboresasqs',
   text: 'LAbore',
   fileName: '/home/laboratoria/LIM014-mdlinks/src',
 }])
