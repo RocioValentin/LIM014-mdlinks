@@ -5,9 +5,8 @@ const {
   readDir,
   markdown,
   complete,
+  getLink,
 } = require('../src/api.js');
-
-// const mdLinks = require('../src/mdLinks.js');
 
 describe('getRoute', () => {
   it('should a function', () => {
@@ -66,6 +65,18 @@ describe('markdown', () => {
   });
   it('return', () => {
     expect(markdown('/home/laboratoria/LIM014-mdlinks/src/hola/bye/bye.md')).toEqual('');
+  });
+});
+
+describe('getLink', () => {
+  it('should a function', () => {
+    expect(typeof getLink).toBe('function');
+  });
+  it('return', () => {
+    expect(getLink(markdown('/home/laboratoria/LIM014-mdlinks/src/hola/hola.md'))).toEqual([{
+      href: 'https://en.wiktionary.org/wiki/labore',
+      text: 'labore',
+    }]);
   });
 });
 

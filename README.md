@@ -14,9 +14,9 @@ Podemos instalar la librería de la siguiente forma:
 ## 3. Modo de uso
 ## 4. Diagrama de Flujo
 ### API
-[API](/home/laboratoria/LIM014-mdlinks/images-README/modified-Page-1.png)
+[API](https://app.diagrams.net/#G1JBU44Pc-bw1nRKWwShKYLZfiHjtd7UWt)
 ### CLI
-[CLI](/home/laboratoria/LIM014-mdlinks/images-README/modified-Page-2.png)
+[CLI](https://app.diagrams.net/#G1h-LyNbeVC4yN1RwLo4TPbQg6_fhfOY3R)
 
 # Markdown Links
 
