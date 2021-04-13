@@ -5,7 +5,7 @@ const {
   readDir,
   markdown,
   complete,
-} = require('../src/index.js');
+} = require('../src/api.js');
 
 // const mdLinks = require('../src/mdLinks.js');
 
@@ -29,7 +29,7 @@ describe('isDir', () => {
     expect(isDir('/home/laboratoria/LIM014-mdlinks/src')).toEqual(true);
   });
   it('return', () => {
-    expect(isDir('/home/laboratoria/LIM014-mdlinks/src/index.js')).toEqual(false);
+    expect(isDir('/home/laboratoria/LIM014-mdlinks/src/api.js')).toEqual(false);
   });
 });
 
@@ -49,6 +49,15 @@ describe('readDir', () => {
   it('return', () => {
     expect(readDir('/home/laboratoria/LIM014-mdlinks/src/hola/bye/bye1/Hello')).toEqual(['/home/laboratoria/LIM014-mdlinks/src/hola/bye/bye1/Hello/Hello.md']);
   });
+  it('return', () => {
+    expect(readDir('/home/laboratoria/LIM014-mdlinks/src/hola')).toEqual([
+      '/home/laboratoria/LIM014-mdlinks/src/hola/bye/bye.md',
+      '/home/laboratoria/LIM014-mdlinks/src/hola/bye/bye1/Hello/Hello.md',
+      '/home/laboratoria/LIM014-mdlinks/src/hola/bye/bye1/hiiii.md',
+      '/home/laboratoria/LIM014-mdlinks/src/hola/hola.md',
+      '/home/laboratoria/LIM014-mdlinks/src/hola/hola1.md',
+    ]);
+  });
 });
 
 describe('markdown', () => {
@@ -56,7 +65,7 @@ describe('markdown', () => {
     expect(typeof markdown).toBe('function');
   });
   it('return', () => {
-    expect(markdown('/home/laboratoria/LIM014-mdlinks/src/hola/hola.md')).toEqual('');
+    expect(markdown('/home/laboratoria/LIM014-mdlinks/src/hola/bye/bye.md')).toEqual('');
   });
 });
 
