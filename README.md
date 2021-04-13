@@ -14,9 +14,9 @@ Podemos instalar la librería de la siguiente forma:
 ## 3. Modo de uso
 ## 4. Diagrama de Flujo
 ### API
-[API](https://app.diagrams.net/#G1JBU44Pc-bw1nRKWwShKYLZfiHjtd7UWt)
+![API](https://app.diagrams.net/#G1JBU44Pc-bw1nRKWwShKYLZfiHjtd7UWt)
 ### CLI
-[CLI](https://app.diagrams.net/#G1h-LyNbeVC4yN1RwLo4TPbQg6_fhfOY3R)
+![CLI](https://app.diagrams.net/#G1h-LyNbeVC4yN1RwLo4TPbQg6_fhfOY3R)
 
 # Markdown Links
 
