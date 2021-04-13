@@ -1,3 +1,20 @@
+# MDLINKS
+
+## Índice
+
+* [1. Descripción](#1-Descripción)
+* [2. Instalación](#2-Instalación)
+* [3. Modo de uso](#3-Modo-de-uso)
+* [4. Diagrama de Flujo](#4-Diagrama-de-Flujo)
+
+## 1. Descripción
+MDLINKS es una librería que lee y analiza los links que contienen los archivos con extensión md, para verificar sus estados, generando un resultado de estadítica y detalle de cada link.
+## 2. Instalación
+Podemos instalar la librería de la siguiente forma:
+## 3. Modo de uso
+## 4. Diagrama de Flujo
+
+
 # Markdown Links
 
 ## Índice

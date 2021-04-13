@@ -5,7 +5,7 @@ const {
   readDir,
   validate,
   complete,
-} = require('./index.js');
+} = require('./api.js');
 
 const mdLinks = (path, option = { validate: false }) => new Promise((resolve, reject) => {
   const pathAbs = getRoute(path);

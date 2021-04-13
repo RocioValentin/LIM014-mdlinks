@@ -4,14 +4,9 @@ const mdlinks = require('./mdLinks.js');
 const {
   stats,
   validateAndStats,
-} = require('./index.js');
+} = require('./api.js');
 
 const [,, ...args] = process.argv;
-
-console.log(args);
-
-/* const path = args[0];
-console.log(path); */
 
 if (args.length === 0) {
   console.log('Ingresa tu ruta y opciones');

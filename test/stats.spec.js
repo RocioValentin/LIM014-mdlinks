@@ -1,7 +1,7 @@
 const {
   stats,
   validateAndStats,
-} = require('../src/index.js');
+} = require('../src/api.js');
 
 describe('Stats ', () => {
   it('should a function', () => {
