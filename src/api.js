@@ -20,12 +20,18 @@ const getRoute = (route) => {
 
 // Identifica si la ruta es File o Directorio
 const isDir = (route) => {
-  const stats = fs.statSync(route);
-  const isDirectory = stats.isDirectory(route);
+  const exist = fs.existsSync(route);
+  let isDirectory;
+  if (exist === true) {
+    const stats = fs.statSync(route);
+    isDirectory = stats.isDirectory(route);
+  } else {
+    isDirectory = undefined;
+  }
   return isDirectory;
 };
 
-// console.log(isDir('/home/laboratoria/LIM014-mdlinks/src/index.js'));
+// console.log(isDir('/home/laboratoria/LIM014-mdlinks/src/inde'));
 
 // Identifica la extension del archivo
 const extMD = (route) => path.extname(route);
