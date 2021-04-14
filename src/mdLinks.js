@@ -39,7 +39,7 @@ const mdLinks = (path, option = { validate: false }) => new Promise((resolve, re
       const listLink = complete(filesMd);
       resolve(listLink);
     }
-  } else {
+  } else if (isDirectory === undefined) {
     reject(new Error('Ruta no encontrada'));
   }
 });
