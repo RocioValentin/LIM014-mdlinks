@@ -12,6 +12,17 @@ MDLINKS es una librería que lee y analiza los links que contienen los archivos 
 ## 2. Instalación
 Podemos instalar la librería de la siguiente forma:
 ## 3. Modo de uso
+Puedes ingresar tus datos con la siguiente sintaxis:
+mdLinks <path-file>
+mdLinks <path-file> option1
+mdLinks <path-file> option2
+mdLinks <path-file> option1 option2
+### Ejemplos
+![numero1]()
+![numero2]()
+![numero3]()
+![numero4]()
+![numero5]()
 ## 4. Diagrama de Flujo
 ### API
 ![API](https://github.com/RocioValentin/LIM014-mdlinks/blob/main/images-README/modified-Page-1.png)
